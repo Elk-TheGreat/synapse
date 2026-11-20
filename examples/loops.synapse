@@ -1,0 +1,362 @@
+{
+  "format": "synapse.project",
+  "format_version": 1,
+  "id": "prj_9294c8a4efc3",
+  "name": "Loops & Functions",
+  "description": "Sums an array by calling a function for every item.",
+  "created": 1795211758.9447682,
+  "modified": 1795211758.945056,
+  "settings": {
+    "theme": "dark",
+    "accent": "#5ac8fa",
+    "autosave_seconds": 60,
+    "run_timeout": 120.0,
+    "node_timeout": 60.0,
+    "max_steps": 20000,
+    "concurrency": 8,
+    "allow_network": true,
+    "allow_file_write": true,
+    "allow_process": false,
+    "allow_scripts": true,
+    "file_roots": [],
+    "allowed_hosts": [],
+    "editor": {}
+  },
+  "graphs": [
+    {
+      "id": "g_main",
+      "name": "Main",
+      "description": "",
+      "nodes": [
+        {
+          "id": "n_4416daf973b8",
+          "type": "core.constant",
+          "params": {
+            "value_type": "auto",
+            "value": "[1, 2, 3, 4, 5]"
+          },
+          "position": [
+            40.0,
+            80.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        },
+        {
+          "id": "n_45ed27604878",
+          "type": "core.constant",
+          "params": {
+            "value_type": "auto",
+            "value": "0"
+          },
+          "position": [
+            40.0,
+            240.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        },
+        {
+          "id": "n_55e93908b857",
+          "type": "logic.for_loop",
+          "params": {
+            "body": "fn_9364da1133",
+            "max_iterations": 10000
+          },
+          "position": [
+            300.0,
+            110.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        },
+        {
+          "id": "n_8908ab1076af",
+          "type": "core.graph_output",
+          "params": {
+            "name": "sum"
+          },
+          "position": [
+            620.0,
+            60.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        },
+        {
+          "id": "n_6d1bb69e7dd6",
+          "type": "core.graph_output",
+          "params": {
+            "name": "iterations"
+          },
+          "position": [
+            620.0,
+            220.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_cbb589eb9c0e",
+          "source": "n_4416daf973b8",
+          "source_port": "value",
+          "target": "n_55e93908b857",
+          "target_port": "items"
+        },
+        {
+          "id": "e_66034a9d0af9",
+          "source": "n_45ed27604878",
+          "source_port": "value",
+          "target": "n_55e93908b857",
+          "target_port": "initial_accumulator"
+        },
+        {
+          "id": "e_8ca3047e947d",
+          "source": "n_55e93908b857",
+          "source_port": "accumulator",
+          "target": "n_8908ab1076af",
+          "target_port": "value"
+        },
+        {
+          "id": "e_7560c8ab560e",
+          "source": "n_55e93908b857",
+          "source_port": "iterations",
+          "target": "n_6d1bb69e7dd6",
+          "target_port": "value"
+        }
+      ],
+      "frames": [],
+      "variables": {},
+      "inputs": [],
+      "outputs": [],
+      "metadata": {}
+    }
+  ],
+  "functions": [
+    {
+      "id": "fn_9364da1133",
+      "name": "Add To Total",
+      "description": "Adds one item to a running total.",
+      "version": 1,
+      "tags": [],
+      "inputs": [
+        {
+          "name": "item",
+          "type": "any",
+          "description": "",
+          "optional": false
+        },
+        {
+          "name": "accumulator",
+          "type": "any",
+          "description": "",
+          "optional": false,
+          "default": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type": "any",
+          "description": "",
+          "optional": false
+        },
+        {
+          "name": "accumulator",
+          "type": "any",
+          "description": "",
+          "optional": false
+        }
+      ],
+      "graph": {
+        "id": "g_sum",
+        "name": "Add To Total",
+        "description": "",
+        "nodes": [
+          {
+            "id": "n_a08f1bbefc90",
+            "type": "core.graph_input",
+            "params": {
+              "name": "item",
+              "variable_type": "any"
+            },
+            "position": [
+              20.0,
+              60.0
+            ],
+            "size": [
+              200.0,
+              110.0
+            ],
+            "label": null,
+            "disabled": false,
+            "version": 1
+          },
+          {
+            "id": "n_2e8d2d6f1c57",
+            "type": "core.graph_input",
+            "params": {
+              "name": "accumulator",
+              "variable_type": "any"
+            },
+            "position": [
+              20.0,
+              200.0
+            ],
+            "size": [
+              200.0,
+              110.0
+            ],
+            "label": null,
+            "disabled": false,
+            "version": 1
+          },
+          {
+            "id": "n_720bfd930275",
+            "type": "math.add",
+            "params": {},
+            "position": [
+              280.0,
+              120.0
+            ],
+            "size": [
+              200.0,
+              110.0
+            ],
+            "label": null,
+            "disabled": false,
+            "version": 1
+          },
+          {
+            "id": "n_5647534a6baf",
+            "type": "core.graph_output",
+            "params": {
+              "name": "result"
+            },
+            "position": [
+              540.0,
+              80.0
+            ],
+            "size": [
+              200.0,
+              110.0
+            ],
+            "label": null,
+            "disabled": false,
+            "version": 1
+          },
+          {
+            "id": "n_300e0fa45e0a",
+            "type": "core.graph_output",
+            "params": {
+              "name": "accumulator"
+            },
+            "position": [
+              540.0,
+              220.0
+            ],
+            "size": [
+              200.0,
+              110.0
+            ],
+            "label": null,
+            "disabled": false,
+            "version": 1
+          }
+        ],
+        "edges": [
+          {
+            "id": "e_21a76d8968de",
+            "source": "n_a08f1bbefc90",
+            "source_port": "value",
+            "target": "n_720bfd930275",
+            "target_port": "a"
+          },
+          {
+            "id": "e_f9ae5bcad19e",
+            "source": "n_2e8d2d6f1c57",
+            "source_port": "value",
+            "target": "n_720bfd930275",
+            "target_port": "b"
+          },
+          {
+            "id": "e_20ada95c07ed",
+            "source": "n_720bfd930275",
+            "source_port": "result",
+            "target": "n_5647534a6baf",
+            "target_port": "value"
+          },
+          {
+            "id": "e_9b55bf54892b",
+            "source": "n_720bfd930275",
+            "source_port": "result",
+            "target": "n_300e0fa45e0a",
+            "target_port": "value"
+          }
+        ],
+        "frames": [],
+        "variables": {},
+        "inputs": [
+          {
+            "name": "item",
+            "type": "any",
+            "description": "",
+            "optional": false
+          },
+          {
+            "name": "accumulator",
+            "type": "any",
+            "description": "",
+            "optional": false,
+            "default": 0
+          }
+        ],
+        "outputs": [
+          {
+            "name": "result",
+            "type": "any",
+            "description": "",
+            "optional": false
+          },
+          {
+            "name": "accumulator",
+            "type": "any",
+            "description": "",
+            "optional": false
+          }
+        ],
+        "metadata": {}
+      }
+    }
+  ],
+  "assets": [],
+  "dependencies": [],
+  "metadata": {}
+}

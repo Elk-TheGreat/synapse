@@ -1,0 +1,43 @@
+{
+  "format": "synapse.project",
+  "format_version": 1,
+  "id": "prj_fa5c89f1bed6",
+  "name": "Blank Project",
+  "description": "",
+  "created": 1795211758.9493601,
+  "modified": 1795211758.9494047,
+  "settings": {
+    "theme": "dark",
+    "accent": "#5ac8fa",
+    "autosave_seconds": 60,
+    "run_timeout": 120.0,
+    "node_timeout": 60.0,
+    "max_steps": 20000,
+    "concurrency": 8,
+    "allow_network": true,
+    "allow_file_write": true,
+    "allow_process": false,
+    "allow_scripts": true,
+    "file_roots": [],
+    "allowed_hosts": [],
+    "editor": {}
+  },
+  "graphs": [
+    {
+      "id": "g_main",
+      "name": "Main",
+      "description": "",
+      "nodes": [],
+      "edges": [],
+      "frames": [],
+      "variables": {},
+      "inputs": [],
+      "outputs": [],
+      "metadata": {}
+    }
+  ],
+  "functions": [],
+  "assets": [],
+  "dependencies": [],
+  "metadata": {}
+}

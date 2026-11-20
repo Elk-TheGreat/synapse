@@ -1,0 +1,257 @@
+{
+  "format": "synapse.project",
+  "format_version": 1,
+  "id": "prj_195a4f1bb45b",
+  "name": "Function Demo",
+  "description": "A reusable function doubles 21.",
+  "created": 1795211758.9461632,
+  "modified": 1795211758.9463563,
+  "settings": {
+    "theme": "dark",
+    "accent": "#5ac8fa",
+    "autosave_seconds": 60,
+    "run_timeout": 120.0,
+    "node_timeout": 60.0,
+    "max_steps": 20000,
+    "concurrency": 8,
+    "allow_network": true,
+    "allow_file_write": true,
+    "allow_process": false,
+    "allow_scripts": true,
+    "file_roots": [],
+    "allowed_hosts": [],
+    "editor": {}
+  },
+  "graphs": [
+    {
+      "id": "g_main",
+      "name": "Main",
+      "description": "",
+      "nodes": [
+        {
+          "id": "n_ef3b4815204b",
+          "type": "core.constant",
+          "params": {
+            "value_type": "auto",
+            "value": "21"
+          },
+          "position": [
+            40.0,
+            100.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        },
+        {
+          "id": "n_56ec811a03e0",
+          "type": "fn.fn_6a5b567f7a",
+          "params": {},
+          "position": [
+            300.0,
+            80.0
+          ],
+          "size": [
+            220.0,
+            90.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        },
+        {
+          "id": "n_2ef58d1f0206",
+          "type": "core.graph_output",
+          "params": {
+            "name": "doubled"
+          },
+          "position": [
+            560.0,
+            100.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_6fae0c323e26",
+          "source": "n_ef3b4815204b",
+          "source_port": "value",
+          "target": "n_56ec811a03e0",
+          "target_port": "x"
+        },
+        {
+          "id": "e_7fb76e6bf80a",
+          "source": "n_56ec811a03e0",
+          "source_port": "result",
+          "target": "n_2ef58d1f0206",
+          "target_port": "value"
+        }
+      ],
+      "frames": [],
+      "variables": {},
+      "inputs": [],
+      "outputs": [],
+      "metadata": {}
+    }
+  ],
+  "functions": [
+    {
+      "id": "fn_6a5b567f7a",
+      "name": "Double",
+      "description": "Doubles a number.",
+      "version": 1,
+      "tags": [],
+      "inputs": [
+        {
+          "name": "x",
+          "type": "integer",
+          "description": "",
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type": "integer",
+          "description": "",
+          "optional": false
+        }
+      ],
+      "graph": {
+        "id": "g_double",
+        "name": "Double",
+        "description": "",
+        "nodes": [
+          {
+            "id": "n_112b29585144",
+            "type": "core.graph_input",
+            "params": {
+              "name": "x",
+              "variable_type": "integer"
+            },
+            "position": [
+              20.0,
+              80.0
+            ],
+            "size": [
+              200.0,
+              110.0
+            ],
+            "label": null,
+            "disabled": false,
+            "version": 1
+          },
+          {
+            "id": "n_aea0051219bf",
+            "type": "core.constant",
+            "params": {
+              "value_type": "auto",
+              "value": "2"
+            },
+            "position": [
+              20.0,
+              210.0
+            ],
+            "size": [
+              200.0,
+              110.0
+            ],
+            "label": null,
+            "disabled": false,
+            "version": 1
+          },
+          {
+            "id": "n_2845eee5f7e3",
+            "type": "math.multiply",
+            "params": {},
+            "position": [
+              260.0,
+              110.0
+            ],
+            "size": [
+              200.0,
+              110.0
+            ],
+            "label": null,
+            "disabled": false,
+            "version": 1
+          },
+          {
+            "id": "n_593c728d74f0",
+            "type": "core.graph_output",
+            "params": {
+              "name": "result"
+            },
+            "position": [
+              520.0,
+              120.0
+            ],
+            "size": [
+              200.0,
+              110.0
+            ],
+            "label": null,
+            "disabled": false,
+            "version": 1
+          }
+        ],
+        "edges": [
+          {
+            "id": "e_a1a4f33549f4",
+            "source": "n_112b29585144",
+            "source_port": "value",
+            "target": "n_2845eee5f7e3",
+            "target_port": "a"
+          },
+          {
+            "id": "e_0254747c2b1c",
+            "source": "n_aea0051219bf",
+            "source_port": "value",
+            "target": "n_2845eee5f7e3",
+            "target_port": "b"
+          },
+          {
+            "id": "e_8370f163866b",
+            "source": "n_2845eee5f7e3",
+            "source_port": "result",
+            "target": "n_593c728d74f0",
+            "target_port": "value"
+          }
+        ],
+        "frames": [],
+        "variables": {},
+        "inputs": [
+          {
+            "name": "x",
+            "type": "integer",
+            "description": "",
+            "optional": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "result",
+            "type": "integer",
+            "description": "",
+            "optional": false
+          }
+        ],
+        "metadata": {}
+      }
+    }
+  ],
+  "assets": [],
+  "dependencies": [],
+  "metadata": {}
+}

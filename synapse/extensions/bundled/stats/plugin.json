@@ -1,0 +1,13 @@
+{
+  "name": "stats",
+  "display_name": "Statistics",
+  "version": "1.0.0",
+  "api_version": 1,
+  "description": "Descriptive statistics nodes, implemented as a bundled plugin.",
+  "author": "SYNAPSE",
+  "entry": "nodes.py",
+  "runtime": "python",
+  "permissions": [],
+  "dependencies": [],
+  "keywords": ["math", "statistics", "sample"]
+}

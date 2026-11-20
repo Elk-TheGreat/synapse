@@ -1,0 +1,118 @@
+{
+  "format": "synapse.project",
+  "format_version": 1,
+  "id": "prj_410020078a3f",
+  "name": "Python Script",
+  "description": "Runs Python in the sandbox and returns a dictionary.",
+  "created": 1795211758.9472933,
+  "modified": 1795211758.9473948,
+  "settings": {
+    "theme": "dark",
+    "accent": "#5ac8fa",
+    "autosave_seconds": 60,
+    "run_timeout": 120.0,
+    "node_timeout": 60.0,
+    "max_steps": 20000,
+    "concurrency": 8,
+    "allow_network": true,
+    "allow_file_write": true,
+    "allow_process": false,
+    "allow_scripts": true,
+    "file_roots": [],
+    "allowed_hosts": [],
+    "editor": {}
+  },
+  "graphs": [
+    {
+      "id": "g_main",
+      "name": "Main",
+      "description": "",
+      "nodes": [
+        {
+          "id": "n_b10b2ef33dc5",
+          "type": "core.constant",
+          "params": {
+            "value_type": "auto",
+            "value": "{\"values\": [4, 8, 15, 16, 23, 42]}"
+          },
+          "position": [
+            40.0,
+            80.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        },
+        {
+          "id": "n_5315a108cbbd",
+          "type": "script.python",
+          "params": {
+            "engine": "python",
+            "code": "values = inputs.get('values', [])\nresult = {\n    'total': sum(values),\n    'mean': (sum(values) / len(values)) if values else 0,\n    'squares': [v * v for v in values],\n}\n",
+            "timeout": 10.0,
+            "allowed_imports": "",
+            "allow_all_imports": false
+          },
+          "position": [
+            320.0,
+            60.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        },
+        {
+          "id": "n_cb89ea1beaa6",
+          "type": "core.graph_output",
+          "params": {
+            "name": "stats"
+          },
+          "position": [
+            640.0,
+            90.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_84b71cd2ef5e",
+          "source": "n_b10b2ef33dc5",
+          "source_port": "value",
+          "target": "n_5315a108cbbd",
+          "target_port": "inputs"
+        },
+        {
+          "id": "e_08ca436c7c0f",
+          "source": "n_5315a108cbbd",
+          "source_port": "result",
+          "target": "n_cb89ea1beaa6",
+          "target_port": "value"
+        }
+      ],
+      "frames": [],
+      "variables": {},
+      "inputs": [],
+      "outputs": [],
+      "metadata": {}
+    }
+  ],
+  "functions": [],
+  "assets": [],
+  "dependencies": [],
+  "metadata": {}
+}

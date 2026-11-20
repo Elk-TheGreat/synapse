@@ -1,0 +1,138 @@
+{
+  "format": "synapse.project",
+  "format_version": 1,
+  "id": "prj_0d2e82e33faf",
+  "name": "Arithmetic",
+  "description": "",
+  "created": 1795211758.943073,
+  "modified": 1795211758.9432733,
+  "settings": {
+    "theme": "dark",
+    "accent": "#5ac8fa",
+    "autosave_seconds": 60,
+    "run_timeout": 120.0,
+    "node_timeout": 60.0,
+    "max_steps": 20000,
+    "concurrency": 8,
+    "allow_network": true,
+    "allow_file_write": true,
+    "allow_process": false,
+    "allow_scripts": true,
+    "file_roots": [],
+    "allowed_hosts": [],
+    "editor": {}
+  },
+  "graphs": [
+    {
+      "id": "g_main",
+      "name": "Main",
+      "description": "",
+      "nodes": [
+        {
+          "id": "n_461f89e1511d",
+          "type": "core.constant",
+          "params": {
+            "value_type": "auto",
+            "value": "6"
+          },
+          "position": [
+            40.0,
+            60.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        },
+        {
+          "id": "n_f2c4ceab1582",
+          "type": "core.constant",
+          "params": {
+            "value_type": "auto",
+            "value": "7"
+          },
+          "position": [
+            40.0,
+            200.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        },
+        {
+          "id": "n_37d0ae5c9fb6",
+          "type": "math.multiply",
+          "params": {},
+          "position": [
+            300.0,
+            110.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        },
+        {
+          "id": "n_b4cf13c27f23",
+          "type": "core.graph_output",
+          "params": {
+            "name": "product"
+          },
+          "position": [
+            560.0,
+            120.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_b5ae7279272b",
+          "source": "n_461f89e1511d",
+          "source_port": "value",
+          "target": "n_37d0ae5c9fb6",
+          "target_port": "a"
+        },
+        {
+          "id": "e_3869ea1b86e0",
+          "source": "n_f2c4ceab1582",
+          "source_port": "value",
+          "target": "n_37d0ae5c9fb6",
+          "target_port": "b"
+        },
+        {
+          "id": "e_4d2c74578e2e",
+          "source": "n_37d0ae5c9fb6",
+          "source_port": "result",
+          "target": "n_b4cf13c27f23",
+          "target_port": "value"
+        }
+      ],
+      "frames": [],
+      "variables": {},
+      "inputs": [],
+      "outputs": [],
+      "metadata": {}
+    }
+  ],
+  "functions": [],
+  "assets": [],
+  "dependencies": [],
+  "metadata": {}
+}

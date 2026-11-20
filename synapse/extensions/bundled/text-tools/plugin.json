@@ -1,0 +1,13 @@
+{
+  "name": "text-tools",
+  "display_name": "Text Tools",
+  "version": "1.0.0",
+  "api_version": 1,
+  "description": "Word counts, slugs and text truncation, implemented as a bundled plugin.",
+  "author": "SYNAPSE",
+  "entry": "nodes.py",
+  "runtime": "python",
+  "permissions": [],
+  "dependencies": [],
+  "keywords": ["text", "string", "sample"]
+}

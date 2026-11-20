@@ -1,0 +1,114 @@
+{
+  "format": "synapse.project",
+  "format_version": 1,
+  "id": "prj_e9a91750095a",
+  "name": "JSON Pipeline",
+  "description": "Parses JSON and reads a nested field.",
+  "created": 1795211758.9483833,
+  "modified": 1795211758.9484835,
+  "settings": {
+    "theme": "dark",
+    "accent": "#5ac8fa",
+    "autosave_seconds": 60,
+    "run_timeout": 120.0,
+    "node_timeout": 60.0,
+    "max_steps": 20000,
+    "concurrency": 8,
+    "allow_network": true,
+    "allow_file_write": true,
+    "allow_process": false,
+    "allow_scripts": true,
+    "file_roots": [],
+    "allowed_hosts": [],
+    "editor": {}
+  },
+  "graphs": [
+    {
+      "id": "g_main",
+      "name": "Main",
+      "description": "",
+      "nodes": [
+        {
+          "id": "n_c4e0d1789f5c",
+          "type": "core.constant",
+          "params": {
+            "value_type": "auto",
+            "value": "{\"user\": {\"name\": \"Ada\", \"roles\": [\"admin\", \"engineer\"]}}"
+          },
+          "position": [
+            40.0,
+            60.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        },
+        {
+          "id": "n_207d8a565d6b",
+          "type": "data.json_query",
+          "params": {
+            "path": "user.roles.1"
+          },
+          "position": [
+            420.0,
+            60.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        },
+        {
+          "id": "n_ac4c5b721b3b",
+          "type": "core.graph_output",
+          "params": {
+            "name": "role"
+          },
+          "position": [
+            700.0,
+            80.0
+          ],
+          "size": [
+            200.0,
+            110.0
+          ],
+          "label": null,
+          "disabled": false,
+          "version": 1
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_54b924e45726",
+          "source": "n_c4e0d1789f5c",
+          "source_port": "value",
+          "target": "n_207d8a565d6b",
+          "target_port": "value"
+        },
+        {
+          "id": "e_48798ec837fd",
+          "source": "n_207d8a565d6b",
+          "source_port": "value",
+          "target": "n_ac4c5b721b3b",
+          "target_port": "value"
+        }
+      ],
+      "frames": [],
+      "variables": {},
+      "inputs": [],
+      "outputs": [],
+      "metadata": {}
+    }
+  ],
+  "functions": [],
+  "assets": [],
+  "dependencies": [],
+  "metadata": {}
+}
