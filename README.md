@@ -42,7 +42,7 @@ On a headless machine, Qt still needs a display; use `xvfb-run -a synapse`.
 4. Press **Ctrl+Enter** to run. Results appear in the console and execution is traced on the canvas.
 5. Press **F5** to debug: right-click a node (or use the inspector) to toggle a breakpoint, then step, inspect values and resume. **Shift+F5** stops a run.
 
-Common shortcuts: `Ctrl+N` new project, `Ctrl+S` save, `Ctrl+O` open, `F5` run, `Shift+F5` debug, `Ctrl+K` find, `Ctrl+Z`/`Ctrl+Shift+Z` undo/redo, `Ctrl+K` quick open, `F1` shortcut list.
+Common shortcuts: `Ctrl+N` new project, `Ctrl+S` save, `Ctrl+O` open, `Ctrl+Enter` run, `F5` debug, `Shift+F5` stop, `Ctrl+Z`/`Ctrl+Shift+Z` undo/redo, `Ctrl+K` quick open, `F1` shortcut list.
 
 ## Examples
 
