@@ -71,7 +71,7 @@ pip install -e ".[dev]"
 pytest
 ```
 
-The suite covers the type system, graph model and serialisation, executor semantics (ordering, parallel branches, cancellation, limits, caching, error isolation), every built-in node, loops, functions and nested calls, debugger sessions, the compiler and generated program, project save/load/recovery, plugins, and offscreen smoke tests of the desktop shell and canvas.
+The suite covers the type system, graph model and serialisation, executor semantics (ordering, parallel branches, cancellation, limits, caching, error isolation), representative built-in nodes from every category, loops, functions and nested calls, debugger sessions, the compiler and generated program, project save/load/recovery, plugins, and offscreen smoke tests of the desktop shell and canvas.
 
 ## Repository map
 

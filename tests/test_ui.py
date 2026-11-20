@@ -58,6 +58,9 @@ def test_new_project_builds_canvas_and_tabs(window, qapp, tmp_path):
     assert "ok" in log and "failed" in log
     assert window.console.last_result is not None
     assert window.console.last_result.outputs
+    assert all(item.run_status == "ok" for item in window.scene.node_items.values())
+    assert any(edge.run_status == "ok" for edge in window.scene.edge_items.values())
+    assert any(edge.value_text for edge in window.scene.edge_items.values())
 
 
 def test_theme_switch(window, qapp, tmp_path):

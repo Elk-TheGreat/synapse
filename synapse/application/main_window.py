@@ -28,6 +28,7 @@ from PySide6.QtWidgets import (
 )
 
 from ..compiler import CompileError, generate_json, generate_python
+from ..debugger.values import value_preview
 from ..extensions import PluginError, PluginManager
 from ..functions.extract import ExtractionError, extract_function
 from ..graph.model import Graph, new_id
@@ -1070,8 +1071,18 @@ class MainWindow(QMainWindow):
         if self.scene is None or event.graph_id != self.scene.graph.id:
             return
         if event.kind == "node_start":
-            self.scene.set_active_node(event.node_id)
-        elif event.kind in ("node_finish", "node_error", "node_skipped"):
+            incoming = [edge.id for edge in self.scene.graph.edges if edge.target == event.node_id]
+            self.scene.set_active_node(event.node_id, incoming)
+        elif event.kind == "node_finish":
+            self.scene.set_active_node(None)
+            # Show results on outgoing wires as soon as a node completes.
+            for edge in self.scene.graph.edges:
+                if edge.source != event.node_id:
+                    continue
+                edge_item = self.scene.edge_items.get(edge.id)
+                if edge_item is not None and edge.source_port in event.data:
+                    edge_item.set_run_state("ok", value_preview(event.data[edge.source_port]))
+        elif event.kind in ("node_error", "node_skipped"):
             self.scene.set_active_node(None)
         elif event.kind == "debug_pause":
             self.scene.set_active_node(event.node_id)
