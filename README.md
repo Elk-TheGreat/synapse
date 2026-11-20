@@ -91,6 +91,7 @@ synapse/
 tests/           pytest suite
 examples/        sample projects and exported code
 documentation/   architecture, project format, node catalogue, security, plugins
+website/         static project site (index.html, docs.html)
 scripts/         maintenance utilities
 ```
 
@@ -101,6 +102,7 @@ scripts/         maintenance utilities
 - [Node catalogue](documentation/NODE_LIBRARY.md) — every node and its ports.
 - [Security model](documentation/SECURITY.md) — trust boundaries for scripts, plugins and I/O.
 - [Plugins](documentation/PLUGINS.md) — writing and packaging node extensions.
+- [Project website](website/index.html) — static overview and the same material in browser form.
 
 ## Status and limitations
 

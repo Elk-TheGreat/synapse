@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SYNAPSE — visual programming where the graph is the program</title>
+<meta name="description" content="SYNAPSE is an open-source desktop visual programming environment: typed dataflow graphs, an async execution engine, a visual debugger, Python scripting, plugins and code generation.">
+<meta name="theme-color" content="#f2efe5">
+<meta property="og:title" content="SYNAPSE — visual programming where the graph is the program">
+<meta property="og:description" content="Typed nodes, real execution, visual debugging. An open-source visual programming environment for Python.">
+<meta property="og:image" content="assets/images/main-window.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230d100c'/%3E%3Ccircle cx='9' cy='9' r='3' fill='%23d4ff4f'/%3E%3Ccircle cx='23' cy='16' r='3' fill='%23f2efe5'/%3E%3Ccircle cx='9' cy='23' r='3' fill='%23ff6b43'/%3E%3Cpath d='M12 9h5c4 0 3 7 6 7M12 23h5c4 0 3-7 6-7' stroke='%23d4ff4f' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="SYNAPSE home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#0d100c"/><circle cx="9" cy="9" r="3" fill="#d4ff4f"/><circle cx="23" cy="16" r="3" fill="#f2efe5"/><circle cx="9" cy="23" r="3" fill="#ff6b43"/><path d="M12 9h5c4 0 3 7 6 7M12 23h5c4 0 3-7 6-7" stroke="#d4ff4f" fill="none"/></svg>
+      SYNAPSE
+    </a>
+    <span class="nav-version">v1.0</span>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links">MENU</button>
+    <nav class="nav-links" id="nav-links" aria-label="Main">
+      <a href="#architecture">Architecture</a>
+      <a href="#features">Features</a>
+      <a href="#nodes">Nodes</a>
+      <a href="docs.html">Documentation</a>
+      <a class="nav-cta" href="https://github.com/Elk-TheGreat/synapse">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="kicker-row mono reveal">Open source · Python + PySide6 · MIT</div>
+        <h1 class="reveal reveal-delay-1">Programs<br>you can <span class="lime-word">see.</span></h1>
+        <p class="lede reveal reveal-delay-2">SYNAPSE is a desktop visual programming environment where the graph <em>is</em> the program. Connect typed nodes, execute real work, and watch data move through every wire.</p>
+        <div class="hero-actions reveal reveal-delay-3">
+          <a class="button button-primary" href="#quickstart">Get started <span aria-hidden="true">↓</span></a>
+          <a class="button button-ghost" href="https://github.com/Elk-TheGreat/synapse">View source <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="hero-meta reveal reveal-delay-3">
+          <span><i class="dot"></i> 86 tests passing</span>
+          <span>108 built-in nodes</span>
+          <span>No account · local first</span>
+        </div>
+      </div>
+
+      <div class="hero-graph reveal reveal-delay-2">
+        <div class="graph-titlebar"><span>g_main / arithmetic</span><span>● running</span></div>
+        <svg viewBox="0 0 760 560" role="img" aria-label="A small SYNAPSE graph multiplying 6 by 7 and sending the result to a graph output node.">
+          <defs>
+            <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+              <circle cx="1.2" cy="1.2" r="1.2" fill="#3a4036"/>
+            </pattern>
+            <filter id="soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+          </defs>
+          <rect width="760" height="560" fill="#11150f"/>
+          <rect width="760" height="560" fill="url(#grid)" opacity=".55"/>
+
+          <path d="M210 161 C258 161 254 258 300 258" fill="none" stroke="#d4ff4f" stroke-width="1.5" opacity=".9"/>
+          <path d="M210 371 C258 371 254 300 300 300" fill="none" stroke="#ff6b43" stroke-width="1.5" opacity=".9"/>
+          <path d="M480 279 L560 279" fill="none" stroke="#d4ff4f" stroke-width="1.5" opacity=".9"/>
+          <path class="edge-flow" d="M210 161 C258 161 254 258 300 258" fill="none" stroke="#d4ff4f" stroke-width="2" opacity=".55"/>
+          <path class="edge-flow" d="M210 371 C258 371 254 300 300 300" fill="none" stroke="#ff6b43" stroke-width="2" opacity=".45"/>
+          <circle r="3.5" fill="#d4ff4f">
+            <animateMotion dur="3.2s" repeatCount="indefinite" path="M210 161 C258 161 254 258 300 258"/>
+          </circle>
+          <circle r="3.5" fill="#ff6b43">
+            <animateMotion dur="3.2s" begin="1.1s" repeatCount="indefinite" path="M210 371 C258 371 254 300 300 300"/>
+          </circle>
+          <circle r="3.5" fill="#d4ff4f">
+            <animateMotion dur="2.1s" begin=".5s" repeatCount="indefinite" path="M480 279 L560 279"/>
+          </circle>
+
+          <g>
+            <rect x="40" y="115" width="170" height="92" rx="3" fill="#191e17" stroke="#46503f"/>
+            <rect x="40" y="115" width="170" height="3" fill="#d4ff4f"/>
+            <text x="56" y="139" fill="#939b8b" font-family="IBM Plex Mono, monospace" font-size="8.5" letter-spacing="1.4">NUMBER</text>
+            <text x="56" y="177" fill="#f2efe5" font-family="Instrument Serif, serif" font-size="31">6</text>
+            <text x="56" y="194" fill="#6f7768" font-family="IBM Plex Mono, monospace" font-size="7.5">integer</text>
+            <circle cx="210" cy="161" r="5" fill="#11150f" stroke="#d4ff4f" stroke-width="2"/>
+          </g>
+          <g>
+            <rect x="40" y="325" width="170" height="92" rx="3" fill="#191e17" stroke="#46503f"/>
+            <rect x="40" y="325" width="170" height="3" fill="#ff6b43"/>
+            <text x="56" y="349" fill="#939b8b" font-family="IBM Plex Mono, monospace" font-size="8.5" letter-spacing="1.4">NUMBER</text>
+            <text x="56" y="387" fill="#f2efe5" font-family="Instrument Serif, serif" font-size="31">7</text>
+            <text x="56" y="404" fill="#6f7768" font-family="IBM Plex Mono, monospace" font-size="7.5">integer</text>
+            <circle cx="210" cy="371" r="5" fill="#11150f" stroke="#ff6b43" stroke-width="2"/>
+          </g>
+          <g>
+            <rect x="300" y="220" width="180" height="118" rx="3" fill="#1a2017" stroke="#d4ff4f" stroke-width="1.2"/>
+            <rect x="300" y="220" width="180" height="3" fill="#d4ff4f"/>
+            <text x="316" y="245" fill="#939b8b" font-family="IBM Plex Mono, monospace" font-size="8.5" letter-spacing="1.4">MATH</text>
+            <text x="316" y="278" fill="#f2efe5" font-family="Instrument Serif, serif" font-size="25">Multiply</text>
+            <text x="316" y="297" fill="#7f8778" font-family="IBM Plex Mono, monospace" font-size="8">a × b → result</text>
+            <circle cx="300" cy="258" r="5" fill="#11150f" stroke="#d4ff4f" stroke-width="2"/>
+            <circle cx="300" cy="300" r="5" fill="#11150f" stroke="#ff6b43" stroke-width="2"/>
+            <circle cx="480" cy="279" r="5" fill="#11150f" stroke="#d4ff4f" stroke-width="2"/>
+            <text x="463" y="318" fill="#d4ff4f" font-family="IBM Plex Mono, monospace" font-size="8">42</text>
+          </g>
+          <g>
+            <rect x="560" y="220" width="170" height="118" rx="3" fill="#191e17" stroke="#46503f"/>
+            <rect x="560" y="220" width="170" height="3" fill="#d4ff4f"/>
+            <text x="576" y="245" fill="#939b8b" font-family="IBM Plex Mono, monospace" font-size="8.5" letter-spacing="1.4">GRAPH OUTPUT</text>
+            <text x="576" y="278" fill="#f2efe5" font-family="Instrument Serif, serif" font-size="25">result</text>
+            <text x="576" y="297" fill="#7f8778" font-family="IBM Plex Mono, monospace" font-size="8">integer</text>
+            <circle cx="560" cy="279" r="5" fill="#11150f" stroke="#d4ff4f" stroke-width="2"/>
+            <circle cx="730" cy="279" r="4" fill="#d4ff4f"/>
+          </g>
+          <text x="40" y="56" fill="#6f7768" font-family="IBM Plex Mono, monospace" font-size="8" letter-spacing="1.2">ARITHMETIC.SYNAPSE / MAIN GRAPH</text>
+          <text x="40" y="510" fill="#545c4e" font-family="IBM Plex Mono, monospace" font-size="8" letter-spacing="1">PAN: SPACE + DRAG · ZOOM: SCROLL · RUN: CTRL + ENTER</text>
+          <line x1="40" y1="482" x2="720" y2="482" stroke="#2c3328"/>
+        </svg>
+        <div class="graph-caption"><span><strong>ok</strong> · 4 nodes · 3 connections</span><span>0.003s · cached 0</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span><b>Logic</b> <i>↗</i> If · Switch · For loop · Break</span>
+      <span><b>Mathematics</b> <i>↗</i> Add · Power · Trigonometry · Random</span>
+      <span><b>Data</b> <i>↗</i> Arrays · Dictionaries · JSON · Variables</span>
+      <span><b>Files</b> <i>↗</i> Read · Write · List · Copy</span>
+      <span><b>Network</b> <i>↗</i> HTTP · WebSocket · TCP · Download</span>
+      <span><b>AI</b> <i>↗</i> Prompt · LLM · Embeddings · Structured output</span>
+      <span><b>Graphics</b> <i>↗</i> Image · Filter · Draw · Export</span>
+      <span><b>Logic</b> <i>↗</i> If · Switch · For loop · Break</span>
+      <span><b>Mathematics</b> <i>↗</i> Add · Power · Trigonometry · Random</span>
+      <span><b>Data</b> <i>↗</i> Arrays · Dictionaries · JSON · Variables</span>
+      <span><b>Files</b> <i>↗</i> Read · Write · List · Copy</span>
+      <span><b>Network</b> <i>↗</i> HTTP · WebSocket · TCP · Download</span>
+      <span><b>AI</b> <i>↗</i> Prompt · LLM · Embeddings · Structured output</span>
+      <span><b>Graphics</b> <i>↗</i> Image · Filter · Draw · Export</span>
+    </div>
+  </div>
+
+  <section class="section" id="architecture">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-index mono">01 / Thesis</div>
+        <div>
+          <h2>The graph is not a picture of the program. It <em>is</em> the program.</h2>
+          <p class="section-intro">No hidden code generation step. The same typed graph that you edit is resolved, ordered and executed by the engine — and feeds the debugger, the compiler and exported programs.</p>
+        </div>
+      </div>
+      <div class="thesis-grid">
+        <div class="thesis-big reveal">Connect a wire. <mark>Data moves.</mark> Break a type rule. The editor says why.</div>
+        <div class="thesis-copy reveal reveal-delay-1">
+          <p>A node editor is easy to draw and hard to make real. SYNAPSE starts from the execution model and works outward: ports have types, edges are validated, independent branches run in parallel, and every node reports its inputs, output and timing.</p>
+          <p>Behind the canvas sits an asynchronous dataflow executor with cancellation, timeouts, loop limits, per-node caching and a security policy for files, processes, network and scripts.</p>
+          <ul class="fact-list">
+            <li><span>01</span>Qt-free graph model, JSON serialisation and validation</li>
+            <li><span>02</span>One intermediate representation for the engine and code generation</li>
+            <li><span>03</span>UI runs off-thread; events stream back to the canvas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pipeline reveal">
+        <div class="pipe-step"><div class="no">STAGE 01</div><h3>Graph</h3><p>Typed ports, defaults, validation rules and configuration on every node.</p></div>
+        <div class="pipe-step"><div class="no">STAGE 02</div><h3>IR</h3><p>Shared intermediate representation with functions and explicit unsupported constructs.</p></div>
+        <div class="pipe-step"><div class="no">STAGE 03</div><h3>Executor</h3><p>Dependency resolution, parallel branches, async I/O, limits and cancellation.</p></div>
+        <div class="pipe-step"><div class="no">STAGE 04</div><h3>Result</h3><p>Outputs, per-node timings, trace history, cache hits and visual run state.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-index mono">02 / Capabilities</div>
+        <div><h2>A working environment, <em>not</em> a canvas demo.</h2></div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature reveal">
+          <div class="feature-top"><span class="feature-no">F / 01</span>
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="8" cy="10" r="3"/><circle cx="8" cy="30" r="3"/><circle cx="31" cy="20" r="4"/><path d="M11 10c8 0 7 10 16 10M11 30c8 0 7-10 16-10"/></svg>
+          </div>
+          <h3>Execution engine</h3>
+          <p>Dataflow ordering, parallel independent operations, async nodes, cancellation, timeouts, step and loop limits, caching and cleanup. Infinite loops cannot freeze the UI.</p>
+          <code>asyncio · worker pools · per-node timing</code>
+        </article>
+        <article class="feature reveal reveal-delay-1">
+          <div class="feature-top"><span class="feature-no">F / 02</span>
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 9h12M6 20h7M6 31h12M24 9v10M24 31v-8"/><path d="M18 9h6v13h6M18 31h6V21h6"/></svg>
+          </div>
+          <h3>Type system</h3>
+          <p>Boolean, integer, float, string, bytes, array, dictionary, image, audio, video, file, object and any. Optional values, custom types and explicit conversions.</p>
+          <code>validate before a single node runs</code>
+        </article>
+        <article class="feature reveal">
+          <div class="feature-top"><span class="feature-no">F / 03</span>
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="5" y="7" width="30" height="22" rx="2"/><path d="M12 14l4 4-4 4M20 22h8M15 34h10"/></svg>
+          </div>
+          <h3>Visual debugger</h3>
+          <p>Set a breakpoint, step, pause, inspect inputs and outputs, read live values on wires, and walk the trace node by node. Built for people who have never used a debugger.</p>
+          <code>F5 debug · F10 step · live wire values</code>
+        </article>
+        <article class="feature reveal reveal-delay-1">
+          <div class="feature-top"><span class="feature-no">F / 04</span>
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 7h16v8H12zM12 25h16v8H12z"/><path d="M20 15v10M8 20h24M8 20v5M32 20v5"/></svg>
+          </div>
+          <h3>Functions</h3>
+          <p>Select a group of nodes and extract a reusable function with typed parameters and returns. Call it across graphs; functions can call other functions.</p>
+          <code>Ctrl + Alt + F to extract</code>
+        </article>
+        <article class="feature reveal">
+          <div class="feature-top"><span class="feature-no">F / 05</span>
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M14 10L7 20l7 10M26 10l7 10-7 10M22 6l-4 28"/></svg>
+          </div>
+          <h3>Python where you need it</h3>
+          <p>A script node with an in-app editor, data passed in and results returned. Scripts run in a separate <code>python -I</code> interpreter with a timeout and import allow-list.</p>
+          <code>untrusted by default</code>
+        </article>
+        <article class="feature reveal reveal-delay-1">
+          <div class="feature-top"><span class="feature-no">F / 06</span>
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 5v6M20 29v6M5 20h6M29 20h6M9 9l4 4M27 27l4 4M31 9l-4 4M13 27l-4 4"/><circle cx="20" cy="20" r="7"/></svg>
+          </div>
+          <h3>Plugins &amp; export</h3>
+          <p>Discover, install and remove node packages with manifests and compatibility checks. Export the graph as versioned JSON or a standalone Python program from the shared IR.</p>
+          <code>ext.&lt;plugin&gt;.&lt;node&gt; · JSON · Python</code>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="inside">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-index mono">03 / Inside</div>
+        <div><h2>An IDE that shows its work.</h2><p class="section-intro">Dockable panels, a searchable node library, an inspector for every parameter, and a console that reports what actually happened.</p></div>
+      </div>
+      <div class="shot-shell reveal">
+        <div class="shot-bar">
+          <span class="traffic" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>SYNAPSE / main window</span>
+          <div class="shot-tabs" role="tablist" aria-label="Theme preview">
+            <button type="button" role="tab" aria-selected="true" data-shot="dark">Dark</button>
+            <button type="button" role="tab" aria-selected="false" data-shot="light">Light</button>
+          </div>
+        </div>
+        <img id="app-shot" src="assets/images/main-window.png" width="1600" height="960" alt="The SYNAPSE desktop application with node library, graph canvas, inspector, minimap and execution console.">
+      </div>
+      <div class="shot-note reveal">
+        <p>The full desktop shell: node library on the left, infinite graph canvas, properties inspector on the right, execution console and dockable debug panels.</p>
+        <div class="mono">1600 × 960 · real application</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="debugging">
+    <div class="wrap debug-grid">
+      <div class="debug-copy reveal">
+        <div class="section-index mono">04 / Debug</div>
+        <h2>See the value.<br><em>Then step.</em></h2>
+        <p>Execution highlights the active node and its incoming wires. When a node finishes, the outgoing wire carries a live value preview. History, inputs, outputs and timings stay one click away.</p>
+        <ul class="debug-list">
+          <li><b>F5</b><span>Start a debug run — pauses at breakpoints.</span></li>
+          <li><b>F10</b><span>Step over one node; inspect what changed.</span></li>
+          <li><b>F6</b><span>Pause a running graph without stopping it.</span></li>
+          <li><b>ESC</b><span>Stop, clean up resources and release the UI.</span></li>
+        </ul>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="trace">
+          <div class="trace-head"><span>EXECUTION TRACE / G_MAIN</span><strong>PAUSED</strong></div>
+          <div class="trace-row"><span class="state">✓</span><span>Number <small>a</small></span><span class="time">0.1ms</span><span class="val">6</span></div>
+          <div class="trace-row"><span class="state">✓</span><span>Number <small>b</small></span><span class="time">0.1ms</span><span class="val">7</span></div>
+          <div class="trace-row active"><span class="state">●</span><span>Multiply <small>a × b</small></span><span class="time">0.2ms</span><span class="val">42</span></div>
+          <div class="trace-row"><span class="state wait">→</span><span>Graph output <small>result</small></span><span class="time">—</span><span class="val">waiting</span></div>
+        </div>
+        <div class="paused-bar"><span>⏸ BREAKPOINT · core.multiply</span><span>INSPECTING INPUTS</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="nodes">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-index mono">05 / Library</div>
+        <div><h2>108 nodes. <em>All real.</em></h2><p class="section-intro">Every built-in node executes actual work. HTTP requests hit the network, file nodes touch the filesystem, image nodes process pixels, AI nodes speak the OpenAI-compatible protocol.</p></div>
+      </div>
+      <div class="node-columns reveal">
+        <div class="node-cat"><span class="cat-no">01</span><div><h3>Logic</h3><p>If · Switch · And · Or · Not · For · While · Break · Continue</p></div><span class="count">14</span></div>
+        <div class="node-cat"><span class="cat-no">02</span><div><h3>Mathematics</h3><p>Arithmetic · Modulo · Power · Sqrt · Trig · Random · Compare</p></div><span class="count">16</span></div>
+        <div class="node-cat"><span class="cat-no">03</span><div><h3>Data</h3><p>Variables · Constants · Arrays · Dictionaries · Strings · JSON</p></div><span class="count">22</span></div>
+        <div class="node-cat"><span class="cat-no">04</span><div><h3>Files</h3><p>Read · Write · Copy · Move · Delete · List · Create directory</p></div><span class="count">9</span></div>
+        <div class="node-cat"><span class="cat-no">05</span><div><h3>Networking</h3><p>HTTP · WebSocket · TCP · JSON API · Download · Upload</p></div><span class="count">7</span></div>
+        <div class="node-cat"><span class="cat-no">06</span><div><h3>AI</h3><p>LLM request · Prompt builder · Embeddings · Classification</p></div><span class="count">6</span></div>
+        <div class="node-cat"><span class="cat-no">07</span><div><h3>Graphics</h3><p>Image load · Resize · Filters · Colour · Draw · Export</p></div><span class="count">9</span></div>
+        <div class="node-cat"><span class="cat-no">08</span><div><h3>System</h3><p>Environment · Process · System info · Timer · Events</p></div><span class="count">8</span></div>
+        <div class="node-cat"><span class="cat-no">09</span><div><h3>Scripting</h3><p>Python script · Inline code · Structured results</p></div><span class="count">4</span></div>
+        <div class="node-cat"><span class="cat-no">10</span><div><h3>Core &amp; functions</h3><p>Graph input · Graph output · Function calls · Conversion</p></div><span class="count">13</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="quickstart">
+    <div class="wrap quick-grid">
+      <div class="reveal">
+        <div class="section-index mono" style="margin-bottom:18px">06 / Quickstart</div>
+        <h2>From zero to a running graph.</h2>
+        <p>SYNAPSE is a desktop application. Install it locally, open a template and press <strong>Ctrl + Enter</strong>.</p>
+        <ol class="steps">
+          <li><b>Install</b><span>Python 3.11+ and a desktop session. Qt needs a display.</span></li>
+          <li><b>Choose a template</b><span>Arithmetic, Loop, or a blank project.</span></li>
+          <li><b>Connect and configure</b><span>Drag a wire, set a parameter in the inspector.</span></li>
+          <li><b>Run and inspect</b><span>Results land in the console; the canvas shows the trace.</span></li>
+        </ol>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="terminal">
+          <div class="terminal-head"><span>TERMINAL / BASH</span><button class="copy-button" type="button" data-copy="install-command">COPY</button></div>
+          <pre id="install-command"><span class="prompt">$</span> git clone https://github.com/Elk-TheGreat/synapse.git
+<span class="prompt">$</span> cd synapse
+<span class="prompt">$</span> python -m venv .venv
+<span class="prompt">$</span> source .venv/bin/activate
+<span class="prompt">$</span> pip install -e .
+<span class="prompt">$</span> synapse
+<span class="comment"># headless? use: xvfb-run -a synapse</span>
+<span class="out">SYNAPSE 1.0 · 108 nodes · ready</span></pre>
+        </div>
+        <p class="mono" style="margin-top:18px;color:var(--muted)">Windows: .venv\Scripts\activate · Requires PySide6, Pillow, numpy</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <div class="mono">SYNAPSE / MIT / OPEN SOURCE</div>
+      <h2>Build something<br><em>you can trace.</em></h2>
+      <div class="cta-actions">
+        <a class="button button-primary" href="https://github.com/Elk-TheGreat/synapse">Clone the repository <span aria-hidden="true">↗</span></a>
+        <a class="button button-ghost" href="docs.html">Read the documentation <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#d4ff4f"/><circle cx="9" cy="9" r="3" fill="#0d100c"/><circle cx="23" cy="16" r="3" fill="#0d100c"/><circle cx="9" cy="23" r="3" fill="#ff6b43"/><path d="M12 9h5c4 0 3 7 6 7M12 23h5c4 0 3-7 6-7" stroke="#0d100c" fill="none"/></svg>
+          SYNAPSE
+        </a>
+        <p>A universal visual programming environment. The graph is the program — typed, executable and debuggable.</p>
+      </div>
+      <div class="foot-col"><h3>PRODUCT</h3><a href="index.html#features">Features</a><a href="index.html#nodes">Node library</a><a href="index.html#quickstart">Install</a><a href="docs.html">Documentation</a></div>
+      <div class="foot-col"><h3>DOCS</h3><a href="docs.html#architecture">Architecture</a><a href="docs.html#project">Project format</a><a href="docs.html#plugins">Plugins</a><a href="docs.html#security">Security</a></div>
+      <div class="foot-col"><h3>SOURCE</h3><a href="https://github.com/Elk-TheGreat/synapse">GitHub</a><a href="https://github.com/Elk-TheGreat/synapse/tree/main/examples">Examples</a><a href="https://github.com/Elk-TheGreat/synapse/blob/main/LICENSE">MIT License</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 SYNAPSE contributors</span><span>Built with Python, PySide6 and a typed graph</span></div>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

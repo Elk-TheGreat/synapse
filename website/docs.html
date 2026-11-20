@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentation — SYNAPSE</title>
+<meta name="description" content="SYNAPSE documentation: architecture, graph model, type system, execution, debugging, functions, Python scripting, plugins, project format and code generation.">
+<meta name="theme-color" content="#f2efe5">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230d100c'/%3E%3Ccircle cx='9' cy='9' r='3' fill='%23d4ff4f'/%3E%3Ccircle cx='23' cy='16' r='3' fill='%23f2efe5'/%3E%3Ccircle cx='9' cy='23' r='3' fill='%23ff6b43'/%3E%3Cpath d='M12 9h5c4 0 3 7 6 7M12 23h5c4 0 3-7 6-7' stroke='%23d4ff4f' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="SYNAPSE home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#0d100c"/><circle cx="9" cy="9" r="3" fill="#d4ff4f"/><circle cx="23" cy="16" r="3" fill="#f2efe5"/><circle cx="9" cy="23" r="3" fill="#ff6b43"/><path d="M12 9h5c4 0 3 7 6 7M12 23h5c4 0 3-7 6-7" stroke="#d4ff4f" fill="none"/></svg>
+      SYNAPSE
+    </a>
+    <span class="nav-version">v1.0</span>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links">MENU</button>
+    <nav class="nav-links" id="nav-links" aria-label="Main">
+      <a href="index.html#architecture">Architecture</a>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#nodes">Nodes</a>
+      <a href="docs.html" aria-current="page">Documentation</a>
+      <a class="nav-cta" href="https://github.com/Elk-TheGreat/synapse">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="doc-hero">
+    <div class="wrap">
+      <div class="mono" style="color:var(--rust)">DOCUMENTATION / V1.0</div>
+      <h1>How SYNAPSE works.</h1>
+      <p>The graph model, execution semantics, type rules, debugging, scripting, plugins, project format and code generation. Written for people who want to extend the system, not just use it.</p>
+    </div>
+  </div>
+
+  <div class="wrap doc-layout">
+    <nav class="doc-nav" aria-label="Documentation sections">
+      <a href="#start">Quick start</a>
+      <a href="#concepts">Core concepts</a>
+      <a href="#graph">Graph model</a>
+      <a href="#types">Type system</a>
+      <a href="#execution">Execution</a>
+      <a href="#debugging">Debugging</a>
+      <a href="#functions">Functions</a>
+      <a href="#scripting">Scripting</a>
+      <a href="#plugins">Plugins</a>
+      <a href="#project">Project format</a>
+      <a href="#codegen">Code generation</a>
+      <a href="#shortcuts">Shortcuts</a>
+      <a href="#limits">Limitations</a>
+    </nav>
+
+    <article class="doc-body">
+      <section id="start">
+        <h2>Quick start</h2>
+        <p>SYNAPSE needs Python 3.11+ and a graphical desktop. Install from source in a virtual environment:</p>
+<pre><code>git clone https://github.com/Elk-TheGreat/synapse.git
+cd synapse
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .
+synapse</code></pre>
+        <p>Open a project directly with <code>synapse path/to/project.synapse</code>. On a headless machine, run <code>xvfb-run -a synapse</code>.</p>
+        <div class="callout"><b>First run</b>Pick the <strong>Arithmetic</strong> template on the welcome screen, press <strong>Ctrl + Enter</strong>, and watch the console and wires. Then open <strong>Loop</strong> to see a reusable function called from a loop body.</div>
+        <h3>Run the tests</h3>
+<pre><code>pip install -e ".[dev]"
+pytest</code></pre>
+      </section>
+
+      <section id="concepts">
+        <h2>Core concepts</h2>
+        <p>A <strong>project</strong> contains one or more graphs, a function library, assets and settings. A <strong>graph</strong> is a set of node instances and directed edges. A <strong>node</strong> is an instance of a registered node type with typed input and output ports and a parameter dictionary.</p>
+        <p>An <strong>edge</strong> carries one value from an output port to an input port. Execution is dataflow: a node runs when its required inputs are available. Graph inputs and graph outputs define the program's interface.</p>
+        <table>
+          <thead><tr><th>Concept</th><th>Stored as</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Node type</td><td>Registry definition</td><td>Built-in or plugin; has ports, parameters and an executor.</td></tr>
+            <tr><td>Node instance</td><td><code>id</code>, <code>type</code>, <code>params</code>, position, size, label</td><td>Qt-free; serialises to JSON.</td></tr>
+            <tr><td>Edge</td><td>source node/port → target node/port</td><td>Validated against port types before connection.</td></tr>
+            <tr><td>Function</td><td>Own graph + typed inputs/outputs</td><td>Called like a node; may call other functions.</td></tr>
+            <tr><td>Run</td><td>ExecutionResult</td><td>Outputs, node results, timings, errors and status.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="graph">
+        <h2>Graph model</h2>
+        <p>The graph package is independent of Qt and of node implementations. A registry is supplied when validating connections or instantiating behaviour, so graphs can be parsed, inspected and tested without starting the UI.</p>
+        <p>Connections are checked when they are made: the target port must exist, the source type must be compatible with the target type, duplicated inputs are rejected, and cycles are refused. A graph can still be serialised with a missing node type, which lets the UI report a missing plugin instead of losing the project.</p>
+        <h3>Node definition fields</h3>
+        <ul>
+          <li>Unique type id, display name, description, category and version</li>
+          <li>Input and output port specs, including optional and variadic ports</li>
+          <li>Parameter specs with type, default, choices and validation</li>
+          <li>An async execution function receiving a node context and inputs</li>
+          <li>Optional keywords for library search and a documentation string</li>
+        </ul>
+        <h3>Frames and annotations</h3>
+        <p>Frames group nodes visually and move with their contents. They are part of the graph document, not executable. The minimap paints graph bounds and the current viewport; clicking or dragging recentres the view.</p>
+      </section>
+
+      <section id="types">
+        <h2>Type system</h2>
+        <p>Values are native Python objects. Media values are wrapped in small dataclasses so their type and metadata survive serialisation and wire previews.</p>
+        <table>
+          <thead><tr><th>Type</th><th>Python value</th><th>Compatibility</th></tr></thead>
+          <tbody>
+            <tr><td><code>boolean</code></td><td><code>bool</code></td><td>Only boolean unless explicitly converted.</td></tr>
+            <tr><td><code>integer</code> / <code>float</code></td><td><code>int</code> / <code>float</code></td><td>Numeric ports accept both; safe conversion is explicit.</td></tr>
+            <tr><td><code>string</code> / <code>bytes</code></td><td><code>str</code> / <code>bytes</code></td><td>Distinct; conversion nodes make intent clear.</td></tr>
+            <tr><td><code>array</code> / <code>dictionary</code></td><td><code>list</code> / <code>dict</code></td><td>Optional element type on array specs.</td></tr>
+            <tr><td><code>image</code>, <code>audio</code>, <code>video</code>, <code>file</code></td><td>Wrapped dataclasses</td><td>Carry bytes, paths and metadata.</td></tr>
+            <tr><td><code>object</code> / <code>any</code></td><td>Any / anything</td><td><code>any</code> is a deliberate escape hatch.</td></tr>
+          </tbody>
+        </table>
+        <p>Ports can be optional, with defaults applied when no edge is connected. Custom types can be registered by plugins. Invalid values raise a <code>ConversionError</code> with the expected and actual type; the executor reports the node and port instead of a generic failure.</p>
+      </section>
+
+      <section id="execution">
+        <h2>Execution</h2>
+        <p><code>Executor</code> builds a run from a graph snapshot, resolves dependencies and schedules nodes as their inputs become available. Independent branches execute concurrently. Blocking work is moved to a thread pool and awaited with <code>asyncio.wrap_future</code>.</p>
+        <h3>Guarantees and limits</h3>
+        <ul>
+          <li>Validation happens before execution; an invalid graph returns errors without running nodes.</li>
+          <li>Runs can be cancelled; resources registered by nodes are cleaned up.</li>
+          <li>Global timeout, per-node timeout, maximum steps and loop iteration limits prevent freezes.</li>
+          <li>Fail-fast mode aborts on the first error; otherwise independent branches can finish and errors are collected.</li>
+          <li>Per-node results are cached within an executor instance where safe.</li>
+        </ul>
+        <h3>Events</h3>
+        <p>The engine emits node start, node finish, debug pause, error and run-level events. The desktop UI re-emits them through Qt queued connections, so the canvas, console and debugger update without blocking the event loop.</p>
+<pre><code>ExecutionResult
+  status: "ok" | "error" | "cancelled"
+  outputs: {port_name: value}
+  nodes: {node_id: NodeResult}
+  errors: [ExecutionError]
+  summary(): human-readable run report</code></pre>
+      </section>
+
+      <section id="debugging">
+        <h2>Debugging</h2>
+        <p>Toggle a breakpoint on a node from its context menu or the inspector, then start a debug run. The session pauses before the node executes and exposes its inputs, outputs (when available), the accumulated trace and the current variables.</p>
+        <ul>
+          <li><strong>Pause / resume</strong> without restarting the graph.</li>
+          <li><strong>Step over</strong> the next node and inspect the result.</li>
+          <li><strong>Stop</strong> cancels the run and releases resources.</li>
+          <li><strong>Trace history</strong> records node, status, duration and output preview.</li>
+          <li><strong>Live wires</strong> display a compact preview of the value after a node finishes.</li>
+        </ul>
+        <div class="callout"><b>Why it is different</b>The debugger is not a separate interpreter. It sits on the same execution path as a normal run, so what you inspect is what actually happened.</div>
+      </section>
+
+      <section id="functions">
+        <h2>Functions</h2>
+        <p>Select a group of nodes and choose <strong>Convert to function</strong>. Edges that cross the selection boundary become typed function inputs and outputs. The selected nodes move into a new graph stored in the project's function library, and the caller is rewired to a function-call node.</p>
+        <p>Functions have a name, description, version, typed parameters, return ports and their own internal graph. They appear in the node library and can be called from any graph in the project, including from other functions.</p>
+        <ul>
+          <li>Function inputs are available as <code>graph_input</code> nodes inside the function.</li>
+          <li>Function outputs are declared on the function and produced by <code>graph_output</code>.</li>
+          <li>Extraction is structural: review generated inputs, outputs and names afterwards.</li>
+          <li>Functions are project-scoped; graph JSON import/export is supported, but a separate function-library exchange format is not yet provided.</li>
+        </ul>
+      </section>
+
+      <section id="scripting">
+        <h2>Scripting &amp; security</h2>
+        <p>Script nodes embed Python source in the graph. The UI provides an editor and a test run. At execution time the script receives a JSON payload of its inputs through a separate interpreter:</p>
+<pre><code>python -I script.py</code></pre>
+        <p>The isolated interpreter ignores user site-packages and environment-based startup hooks. A timeout, output size limits and an import allow-list are enforced by the runner. Script errors are returned to the node, including the traceback, and do not take down the application.</p>
+        <div class="callout"><b>Trust boundary</b>This is a guard rail, not an operating-system sandbox. A malicious script running as your user may still reach anything your user can reach. Run untrusted projects in a container or a dedicated account.</div>
+        <p>File, process, network and script permissions come from project settings. File nodes are restricted to configured roots when a policy is active; network nodes can be limited to an allowed-host list. The AI nodes read their API key from an environment variable and never store it in the project.</p>
+        <p>Language engines implement a small plugin interface: a runner receives source, inputs and options, and returns JSON-compatible outputs or a structured error. Python is the implemented engine; the interface is designed for future JavaScript or Rust integrations.</p>
+      </section>
+
+      <section id="plugins">
+        <h2>Plugins</h2>
+        <p>A plugin is a folder with a <code>plugin.json</code> manifest and an entry module. It can declare nodes, categories, configuration fields, dependencies, documentation and a compatible SYNAPSE version range.</p>
+<pre><code>{
+  "name": "text-tools",
+  "version": "1.0.0",
+  "api_version": 1,
+  "entry": "nodes.py",
+  "description": "Text transformation nodes"
+}</code></pre>
+        <p>The entry module defines <code>register(registry, api)</code> and registers node definitions through the plugin API. Plugin nodes are namespaced as <code>ext.&lt;plugin&gt;.&lt;type_id&gt;</code>, cannot overwrite built-ins, and are loaded only when enabled.</p>
+        <ul>
+          <li><strong>Discovery</strong> scans the bundled directory and the user plugin directory.</li>
+          <li><strong>Install</strong> accepts a local package through the plugin dialog; it is not fetched automatically.</li>
+          <li><strong>Enable / disable</strong> controls whether its nodes enter the registry.</li>
+          <li><strong>Compatibility</strong> checks the manifest's API and host version before loading.</li>
+          <li><strong>Failure isolation</strong> reports a broken plugin without preventing the app from starting.</li>
+        </ul>
+        <p>Python plugins run in-process and are trusted once enabled. Script-runtime plugins execute in the isolated runner. Bundled plugins cannot be removed; disable them instead.</p>
+      </section>
+
+      <section id="project">
+        <h2>Project format</h2>
+        <p>A <code>.synapse</code> file is versioned JSON. It contains project metadata, settings, graph documents, function definitions, assets and dependency declarations. Unknown fields are preserved where practical so newer projects fail with a clear version message rather than silently losing data.</p>
+<pre><code>{
+  "format": "synapse-project",
+  "version": 1,
+  "metadata": {"name": "Demo", "description": "..."},
+  "settings": {"allow_network": false, "allow_scripts": true},
+  "graphs": [{"id": "g_main", "name": "Main", "nodes": [], "edges": []}],
+  "functions": [],
+  "assets": []
+}</code></pre>
+        <p>Autosave writes a recovery copy while there are unsaved changes. On the next launch, a crashed session offers recovery; discarding it removes the recovery file. Recent projects and UI settings live in a local SQLite database, not in the project.</p>
+        <p>See the full <a href="https://github.com/Elk-TheGreat/synapse/blob/main/documentation/PROJECT_FORMAT.md">project format specification</a> for every field.</p>
+      </section>
+
+      <section id="codegen">
+        <h2>Code generation</h2>
+        <p>The graph and the executor share one intermediate representation. JSON export writes the graph document plus functions and metadata. Python export produces a standalone script that embeds the compiled IR and drives the SYNAPSE runtime.</p>
+        <p>This is deliberately not a claim of idiomatic translation. Nodes without a native lowering are listed in the generated file header, and the program reports unsupported constructs instead of silently changing behaviour.</p>
+<pre><code>python examples/exported_arithmetic.py --pretty
+# {"status": "ok", "outputs": {"product": 42}}</code></pre>
+        <p>JavaScript generation is not implemented. The IR and the compiler boundary are designed so additional targets can be added without changing the graph editor.</p>
+      </section>
+
+      <section id="shortcuts">
+        <h2>Keyboard shortcuts</h2>
+        <table>
+          <thead><tr><th>Action</th><th>Shortcut</th></tr></thead>
+          <tbody>
+            <tr><td>New project / open / save</td><td><code>Ctrl+N</code> · <code>Ctrl+O</code> · <code>Ctrl+S</code></td></tr>
+            <tr><td>Save as / import graph</td><td><code>Ctrl+Shift+S</code> · <code>Ctrl+Shift+O</code></td></tr>
+            <tr><td>New graph / rename / delete</td><td><code>Ctrl+Shift+N</code> · inspector</td></tr>
+            <tr><td>Run / debug / pause / step / stop</td><td><code>Ctrl+Enter</code> · <code>F5</code> · <code>F6</code> · <code>F10</code> · <code>Shift+F5</code></td></tr>
+            <tr><td>Undo / redo</td><td><code>Ctrl+Z</code> · <code>Ctrl+Shift+Z</code></td></tr>
+            <tr><td>Copy / paste / delete</td><td><code>Ctrl+C</code> · <code>Ctrl+V</code> · <code>Del</code></td></tr>
+            <tr><td>Quick open / auto layout</td><td><code>Ctrl+K</code> · <code>Ctrl+L</code></td></tr>
+            <tr><td>Extract function</td><td><code>Ctrl+Alt+F</code></td></tr>
+            <tr><td>Zoom / fit graph</td><td><code>Ctrl+=</code> · <code>Ctrl+-</code> · <code>Ctrl+0</code> · <code>Ctrl+Shift+F</code></td></tr>
+            <tr><td>Shortcut reference</td><td><code>F1</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="limits">
+        <h2>Current limitations</h2>
+        <ul>
+          <li>JavaScript code generation is not implemented; Python export drives the embedded runtime.</li>
+          <li>AI nodes require an OpenAI-compatible endpoint and an API key in an environment variable.</li>
+          <li>Script and plugin isolation is a guard rail, not a hardened OS sandbox.</li>
+          <li>Functions are stored per project; there is no separate function-library import/export yet.</li>
+          <li>The test suite exercises representative nodes in every category, not every parameter of all 108 nodes.</li>
+        </ul>
+        <div class="pager"><a href="index.html#quickstart">← Install</a><a href="https://github.com/Elk-TheGreat/synapse/tree/main/documentation">Source docs ↗</a></div>
+      </section>
+    </article>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#d4ff4f"/><circle cx="9" cy="9" r="3" fill="#0d100c"/><circle cx="23" cy="16" r="3" fill="#0d100c"/><circle cx="9" cy="23" r="3" fill="#ff6b43"/><path d="M12 9h5c4 0 3 7 6 7M12 23h5c4 0 3-7 6-7" stroke="#0d100c" fill="none"/></svg>SYNAPSE</a>
+        <p>A universal visual programming environment. The graph is the program — typed, executable and debuggable.</p>
+      </div>
+      <div class="foot-col"><h3>PRODUCT</h3><a href="index.html#features">Features</a><a href="index.html#nodes">Node library</a><a href="index.html#quickstart">Install</a><a href="docs.html">Documentation</a></div>
+      <div class="foot-col"><h3>DOCS</h3><a href="#graph">Architecture</a><a href="#project">Project format</a><a href="#plugins">Plugins</a><a href="#scripting">Security</a></div>
+      <div class="foot-col"><h3>SOURCE</h3><a href="https://github.com/Elk-TheGreat/synapse">GitHub</a><a href="https://github.com/Elk-TheGreat/synapse/tree/main/examples">Examples</a><a href="https://github.com/Elk-TheGreat/synapse/blob/main/LICENSE">MIT License</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 SYNAPSE contributors</span><span>Built with Python, PySide6 and a typed graph</span></div>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>
