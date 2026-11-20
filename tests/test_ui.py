@@ -100,3 +100,19 @@ def test_canvas_copy_paste_and_delete(qapp, registry):
     assert pasted and pasted.isdisjoint(ids)
     scene.delete_selection()
     assert len(scene.graph.nodes) == before
+
+
+def test_debug_pause_and_resume(window, qapp, tmp_path):
+    window.new_project("Arithmetic", "Debug UI Demo", str(tmp_path))
+    node_id = next(iter(window.scene.node_items))
+    assert window.scene.toggle_breakpoint(node_id) is True
+    window.run_graph(debug=True)
+    assert _wait(qapp, lambda: window.status_run.text() == "paused")
+    window.runner.resume()
+    assert _wait(
+        qapp,
+        lambda: not window.runner.is_running()
+        and "run finished" in window.console.output.toPlainText().lower(),
+    )
+    assert window.console.last_result is not None
+    assert not window.console.last_result.errors

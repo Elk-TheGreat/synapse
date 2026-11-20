@@ -41,8 +41,6 @@ Source = "https://github.com/Elk-TheGreat/synapse"
 [tool.hatch.build.targets.wheel]
 packages = ["synapse"]
 
-[tool.hatch.build.targets.wheel.force-include]
-"synapse/extensions/bundled" = "synapse/extensions/bundled"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
